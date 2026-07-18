@@ -234,7 +234,6 @@ function DistrictHub() {
           className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3"
         >
           {districts.map(({ name, desc, Icon, classified }) => {
-            const accent = classified ? "danger" : "amber";
             return (
               <motion.li
                 key={name}
@@ -282,8 +281,6 @@ function DistrictHub() {
                     classified ? "bg-danger" : "bg-amber"
                   } opacity-0 group-hover:opacity-100`}
                 />
-                {/* eslint-disable-next-line @typescript-eslint/no-unused-expressions */}
-                {accent}
               </motion.li>
             );
           })}
