@@ -12,7 +12,6 @@ import {
   IconSearch,
   IconBolt,
 } from "@tabler/icons-react";
-import { BatSignal, BatMark } from "@/components/BatSignal";
 import CircularGallery from "@/components/CircularGallery";
 
 const MagicRings = lazy(() => import("@/components/MagicRings"));
@@ -69,7 +68,7 @@ function Navbar() {
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <a href="#top" className="flex items-center gap-2 text-[#C0392B]">
-          <BatMark className="h-4 w-8" />
+          <img src="/images/batman-logo.png" alt="Batman" className="nav-bat-logo" />
           <span className="font-display text-lg font-semibold tracking-widest">GCC</span>
         </a>
         <ul className="hidden items-center gap-1 md:flex">
@@ -161,10 +160,8 @@ function Hero() {
               hidden: { opacity: 0, scale: 0.85 },
               show: { opacity: 1, scale: 1, transition: { duration: 0.9 } },
             }}
-            className="mt-12 text-[#8B1A1A]"
-            style={{ filter: "drop-shadow(0 0 24px rgba(139, 26, 26, 0.55))" }}
           >
-            <BatSignal className="h-16 w-32 md:h-20 md:w-40" />
+            <img src="/images/batman-logo.png" alt="Batman" className="hero-bat-logo" />
           </motion.div>
         </motion.div>
       </div>
