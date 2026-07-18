@@ -4,6 +4,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-gotham-bg: #080810;
+  --color-gotham-surface: #0e0e1a;
+  --color-gotham-border: #1a1a2e;
+  --color-amber: #e8b800;
+  --color-amber-soft: #f2cf3c;
+  --color-monitor: #4a9ebf;
+  --color-danger: #8b0000;
+  --color-danger-soft: #b31212;
+  --color-ink: #e6e6ea;
+  --color-ink-muted: #8a8a95;
+}
+
 /*
  * Design system definition.
  *
@@ -138,7 +155,63 @@
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--color-gotham-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 }
+
+/* Noise + scanline ambient overlays */
+.gotham-root {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-gotham-bg);
+  background-image:
+    radial-gradient(1200px 600px at 50% -10%, rgba(232, 184, 0, 0.06), transparent 60%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+  background-blend-mode: overlay;
+}
+
+.gotham-root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+.gotham-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 59;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.text-amber-glow {
+  text-shadow: 0 0 18px rgba(232, 184, 0, 0.45), 0 0 2px rgba(232, 184, 0, 0.9);
+}
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+.animate-bounce-soft { animation: bounce-soft 1.8s ease-in-out infinite; }
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.85; }
+  50% { opacity: 0.65; }
+  55% { opacity: 0.9; }
+}
+.animate-flicker { animation: flicker 6s infinite; }
